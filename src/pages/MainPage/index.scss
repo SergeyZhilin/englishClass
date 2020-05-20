@@ -1,0 +1,25 @@
+.main-page {
+  padding: 20px;
+
+  form {
+    margin-bottom: 40px;
+  }
+
+  .question-section {
+    &__question {
+      display: flex;
+      justify-content: center;
+      margin-bottom: unset;
+    }
+
+    .outline-questions {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 50px 0;
+
+      input[type=radio] {
+        display: none;
+      }
+    }
+  }
+}

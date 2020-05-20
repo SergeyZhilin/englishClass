@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AddNewTestPageComponent from "../../components/AddNewTestPageComponent";
 
 class AddNewTestPage extends Component {
 
@@ -9,7 +10,7 @@ class AddNewTestPage extends Component {
         return (
             <React.Fragment>
                 <Header/>
-                AddNewTestPage
+                <AddNewTestPageComponent/>
                 <Footer/>
             </React.Fragment>
         )

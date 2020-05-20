@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Col, Form} from "react-bootstrap";
+
 import QuestionsComponent from "../QuestionsComponent";
+import SelectLevelsComponent from "../SelectLevelsComponent";
 
 class MainPageComponent extends Component {
 
@@ -30,7 +32,7 @@ class MainPageComponent extends Component {
     render() {
         const {openQuestions} = this.state;
         return (
-            <div className="main-page">
+            <div className="main-page container">
                 <Form>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formFirstName">
@@ -51,23 +53,7 @@ class MainPageComponent extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>Your English Level</Form.Label>
-                            <Form.Control as="select"
-                                          defaultValue="Choose..."
-                                          name="englishDefault"
-                                          onChange={this.handleChange}
-                            >
-                                <option disabled>Choose...</option>
-                                <option value='beginner'>Beginner</option>
-                                <option value='elementary'>Elementary</option>
-                                <option value='pre-intermediate'>Pre-Intermediate</option>
-                                <option value='intermediate'>Intermediate</option>
-                                <option value='upper-intermediate'>Upper Intermediate</option>
-                                <option value='advanced'>Advanced</option>
-                                <option value='mastery'>Mastery</option>
-                            </Form.Control>
-                        </Form.Group>
+                        <SelectLevelsComponent label="Your English Level" handleChange={this.handleChange}/>
                     </Form.Row>
                 </Form>
                 {

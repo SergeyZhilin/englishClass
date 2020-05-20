@@ -4,6 +4,7 @@ import {Button} from "react-bootstrap";
 
 class QuestionsComponent extends Component {
     render() {
+        //@todo
         const questionsArray = new Array(null, null, null, null, null, null, null, null, null, null, null, null);
         return (
             <>

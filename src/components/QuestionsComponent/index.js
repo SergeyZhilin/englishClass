@@ -8,7 +8,7 @@ class QuestionsComponent extends Component {
         const questionsArray = new Array(null, null, null, null, null, null, null, null, null, null, null, null);
         return (
             <>
-                <p>Please answer this questions</p>
+                <p>Please answer these questions</p>
                 <div className="container d-flex flex-column justify-content-center">
                     {
                         questionsArray.map((question, index) => (

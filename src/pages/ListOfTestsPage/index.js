@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 
 import Header from "../../components/Header";
+import ListOfTests from "../../components/ListOfTests";
 import Footer from "../../components/Footer";
+
+import './index.scss'
 
 class ListOfTestsPage extends Component {
 
@@ -9,7 +12,7 @@ class ListOfTestsPage extends Component {
         return (
             <React.Fragment>
                 <Header/>
-                ListOfTestsPage
+                 <ListOfTests />
                 <Footer/>
             </React.Fragment>
         )

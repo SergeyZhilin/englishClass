@@ -5,7 +5,6 @@
   .list-item-wrapper {
     margin-top: 10px;
     border-radius: 3px;
-    background-color: #f1f0f0;
     border: 1px solid #ccc;
 
   }
@@ -39,6 +38,8 @@
 
     .answer {
       width: max-content;
+      padding: 0;
+      border: none;
     }
 
     .question {

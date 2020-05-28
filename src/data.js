@@ -95,7 +95,7 @@ export const PEOPLE = [
 		rightAnswerCount: '3'
 	},
 	{
-		firstName: 'Edd',
+		firstName: 'Ed',
 		lastName: 'Sheeran',
 		level: 'Intermediate',
 		rightAnswerCount: '9'

@@ -33,7 +33,7 @@ const ListOfTestsItem = ({person}) => {
 			</div>
 			<Collapse in={open}>
 				<div id="list-item-collapse">
-					<AnswersComponent/>
+					<AnswersComponent />
 				</div>
 			</Collapse>
 		</div>

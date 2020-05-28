@@ -1,15 +1,26 @@
 import React from 'react';
 import ListGroup from "react-bootstrap/ListGroup";
 
+const Answer = ({answer, number}) => {
+	return (
+		<ListGroup.Item className='answer' variant={answer.status}>
+			{`${number}. ${answer.answer}`}
+		</ListGroup.Item>
+	)
+}
+
 const Answers = ({question, answers = [], number}) => {
 	return (
 		<React.Fragment>
 			<div className='question'> {`${number}. ${question}`} </div>
 			<ListGroup>
-				{answers.map((answer, index) => <Answer
+				{
+					answers.map((answer, index) => (
+					<Answer
 					answer={answer}
 					number={index + 1}
-					key={index} />)}
+					key={index} />))
+				}
 			</ListGroup>
 		</React.Fragment>
 	)
@@ -17,11 +28,3 @@ const Answers = ({question, answers = [], number}) => {
 
 export default Answers;
 
-const Answer = ({answer, number}) => {
-	console.log(answer)
-	return (
-			<ListGroup.Item className='answer' variant={answer.status}>
-				{`${number}. ${answer.answer}`}
-			</ListGroup.Item>
-	)
-}

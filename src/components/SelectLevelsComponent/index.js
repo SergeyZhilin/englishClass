@@ -18,7 +18,6 @@ export default function SelectLevelsComponent({ label, handleChange }) {
         <option value="intermediate">Intermediate</option>
         <option value="upper-intermediate">Upper Intermediate</option>
         <option value="advanced">Advanced</option>
-        {/* <option value='mastery'>Mastery</option> */}
       </Form.Control>
     </Form.Group>
   );

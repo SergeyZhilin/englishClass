@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import Col from "react-bootstrap/Col";
 import ListOfTestsItem from "./ListOfTestsItem";
-//fake data
-import {PEOPLE} from "../../data";
+
 
 class ListOfTests extends Component {
 	render() {
@@ -17,7 +16,7 @@ class ListOfTests extends Component {
 					</Col>
 				</Col>
 				{
-					PEOPLE.map(person => <ListOfTestsItem person={person}/>)
+					this.props.people.map((person, i) => <ListOfTestsItem person={person} key={i}/>)
 				}
 			</div>
 		)

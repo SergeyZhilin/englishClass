@@ -5,7 +5,6 @@ import {ANSWERS_DATA} from "../../data";
 
 class AnswersComponent extends Component {
 	render() {
-
 		return (
 			<React.Fragment>
 				<div className="d-flex flex-column justify-content-center answers-list">

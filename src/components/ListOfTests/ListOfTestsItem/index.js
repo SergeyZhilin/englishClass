@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Component} from "react";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -6,38 +6,47 @@ import AnswersComponent from "../../AnswersComponent";
 
 import arrowUp from "../../../assets/arrow-up.svg"
 import arrowDown from "../../../assets/arrow-down.svg"
-import {QUESTIONS} from "../../../data";
 
-const ListOfTestsItem = ({person}) => {
-	const [open, setOpen] = useState(false);
-	const arrow = open
+class ListOfTestsItem extends Component {
+
+	state = {
+		open: false,
+	}
+
+	arrow = this.state.open
 		? <img alt="arrow" src={arrowUp}/>
 		: <img alt="arrow" src={arrowDown}/>
 
-	return (
-		<div className="list-item-wrapper">
-			<div className="list-item-info">
-				<Col> {person.firstName} {person.lastName} </Col>
-				<Col md="6" xs="8" lg="4">
-					<div> {person.level} </div>
-					<div> {person.rightAnswerCount}/{QUESTIONS.length} </div>
-					<Button
-						type="button"
-						variant="light"
-						className="arrow-btn"
-						onClick={() => setOpen((prevState) => !prevState)}
-					>
-						{arrow}
-					</Button>
-				</Col>
-			</div>
-			<Collapse in={open}>
-				<div id="list-item-collapse">
-					<AnswersComponent />
+	render() {
+		const { open } = this.state
+		const { person} = this.props
+		return (
+			<div className="list-item-wrapper">
+				<div className="list-item-info">
+					<Col> {person.firstName} {person.lastName} </Col>
+					<Col md="6" xs="8" lg="4">
+						<div> {person.level} </div>
+						<div> {person.rightAnswerCount}/20 </div>
+						<Button
+							type="button"
+							variant="light"
+							className="arrow-btn"
+							onClick={() => this.setState((prevState) => ({
+								open: !prevState.open
+							}))}
+						>
+							{this.arrow}
+						</Button>
+					</Col>
 				</div>
-			</Collapse>
-		</div>
-	)
+				<Collapse in={open}>
+					<div id="list-item-collapse">
+						<AnswersComponent person={person}/>
+					</div>
+				</Collapse>
+			</div>
+		)
+	}
 }
 
 export default ListOfTestsItem

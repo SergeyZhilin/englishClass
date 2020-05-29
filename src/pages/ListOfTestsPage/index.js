@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Header from "../../components/Header";
 import ListOfTests from "../../components/ListOfTests";
@@ -12,27 +12,24 @@ class ListOfTestsPage extends Component {
     service = new Service()
 
     state = {
-        people: []
+        allTests: []
     }
 
-    componentDidMount() {
-        const people = this.getAllPeople()
-        console.log(people)
+   async componentDidMount() {
+        const allTests = await this.service.getAllTests()
         this.setState({
-            people
+            allTests
         })
     }
 
-    getAllPeople = () => {
-        return this.service.getAllTests()
-    }
+
 
     render() {
         console.log(this.state)
         return (
             <React.Fragment>
                 <Header/>
-                 <ListOfTests people={this.state.people} />
+                 <ListOfTests allTests={this.state.allTests} />
                 <Footer/>
             </React.Fragment>
         )

@@ -16,10 +16,10 @@ const Answers = ({question, answers = [], number}) => {
 			<ListGroup>
 				{
 					answers.map((answer, index) => (
-					<Answer
-					answer={answer}
-					number={index + 1}
-					key={index} />))
+						<Answer
+						answer={answer}
+						number={index + 1}
+						key={index} />))
 				}
 			</ListGroup>
 		</React.Fragment>

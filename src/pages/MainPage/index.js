@@ -11,7 +11,7 @@ class MainPage extends Component {
         return (
             <React.Fragment>
                 <Header/>
-                <MainPageComponent/>
+                <MainPageComponent />
                 <Footer/>
             </React.Fragment>
         )

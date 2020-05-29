@@ -4,11 +4,7 @@ import {Button, Form} from "react-bootstrap";
 import SelectLevelsComponent from "../SelectLevelsComponent";
 
 class AddNewTestPageComponent extends Component {
-	constructor() {
-		super();
-	}
 	service = new Service()
-
 	state = {}
 
 	answerName = [1, 2, 3, 4]
@@ -19,8 +15,9 @@ class AddNewTestPageComponent extends Component {
 		})
 	}
 
-	onSubmit = (newTest) => {
-		return this.service.createTest(newTest)
+	 onSubmit = async (newTest) => {
+		const res = await this.service.createTest(newTest)
+		alert(res.data)
 	}
 
 	render() {

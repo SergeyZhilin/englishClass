@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
 import Question from "./Question";
-import {Button} from "react-bootstrap";
-//fake data
-import {QUESTIONS} from "../../data";
+import Loader from "../Loader";
 
 class QuestionsComponent extends Component {
+
 	render() {
-		//@todo
 		return (
 			<>
 				<p>Please answer these questions</p>
 				<div className="container d-flex flex-column justify-content-center">
 					{
-						QUESTIONS.map((question, index) => (
-							<Question key={index}/>
-						))
+						this.props.data.questions
+							? (this.props.data.questions.map((question, index) => (<Question key={index}/>)))
+							: <Loader />
 					}
-					<Button className="w-50 m-auto" variant="warning">Submit</Button>
 				</div>
 			</>
 		)

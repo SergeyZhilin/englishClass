@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
 import Answers from "./Answers";
-// fake data
-import {ANSWERS_DATA} from "../../data";
+import Service from "../../services/service";
 
 class AnswersComponent extends Component {
+	service = new Service()
+
+	state = {
+		allAnswers: []
+	}
+
+	async componentDidMount() {
+		const allAnswers = await this.service.getAllAnswers(`${this.props.person.firstName}_${this.props.person.lastName}`)
+		this.setState({
+			allAnswers
+		})
+	}
+
 	render() {
 		return (
 			<React.Fragment>
 				<div className="d-flex flex-column justify-content-center answers-list">
 					{
-						ANSWERS_DATA.map(({question, answers}, index) => (
+						this.state.allAnswers.map(({question, answers}, index) => (
 							<Answers
 								question={question}
 								answers={answers}

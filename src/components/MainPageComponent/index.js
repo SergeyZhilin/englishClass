@@ -1,22 +1,39 @@
 import React, {Component} from 'react';
-import {Col, Form} from "react-bootstrap";
+import {Button, Col, Form} from "react-bootstrap";
 
 import QuestionsComponent from "../QuestionsComponent";
 import SelectLevelsComponent from "../SelectLevelsComponent";
+import Service from "../../services/service";
 
 class MainPageComponent extends Component {
+    service  = new Service()
 
     state = {
         openQuestions: false,
+        questions: null,
         firstName: null,
         lastName: null,
         englishDefault: null,
+        loading: true
+    }
+
+    async getQuestions(level) {
+       const questions = await this.service.getTestByLevel(level)
+        console.log('questions', questions)
+
+        this.setState({
+            questions
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {lastName, firstName, englishDefault, openQuestions} = this.state
+        const { lastName, firstName, englishDefault, openQuestions, questions } = this.state
 
-        if (lastName && firstName && englishDefault && !openQuestions) {
+        if(lastName && firstName && englishDefault && (!questions || englishDefault !== prevState.englishDefault )) {
+           return this.getQuestions(englishDefault)
+        }
+
+        if (lastName && firstName && englishDefault && !openQuestions &&questions) {
             this.setState({
                 openQuestions: true
             })
@@ -29,8 +46,13 @@ class MainPageComponent extends Component {
         })
     }
 
+    onSubmit({lastName, firstName, englishDefault}) {
+        this.service.submitTest({lastName, firstName, englishDefault})
+    }
+
     render() {
-        const {openQuestions} = this.state;
+        const {openQuestions, englishDefault, lastName, firstName, loading} = this.state;
+
         return (
             <div className="main-page container">
                 <Form>
@@ -43,7 +65,6 @@ class MainPageComponent extends Component {
                                           onChange={this.handleChange}
                             />
                         </Form.Group>
-
                         <Form.Group as={Col} controlId="formLastName">
                             <Form.Label>Last Name</Form.Label>
                             <Form.Control type="text"
@@ -58,9 +79,17 @@ class MainPageComponent extends Component {
                 </Form>
                 {
                     openQuestions && (
-                        <QuestionsComponent/>
+                        <>
+                            <QuestionsComponent data={this.state} />
+                            <Button disabled={!lastName || !firstName} className="w-50 button" variant="warning" onClick={() => this.onSubmit({
+                                englishDefault,
+                                lastName,
+                                firstName
+                            })}>Submit</Button>
+                        </>
                     )
                 }
+
             </div>
         )
     }

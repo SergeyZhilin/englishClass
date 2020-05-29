@@ -16,7 +16,7 @@ class ListOfTests extends Component {
 					</Col>
 				</Col>
 				{
-					this.props.people.map((person, i) => <ListOfTestsItem person={person} key={i}/>)
+					this.props.allTests.map((person, i) => <ListOfTestsItem person={person} key={i}/>)
 				}
 			</div>
 		)

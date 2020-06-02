@@ -5,14 +5,22 @@ import Service from "../../services/service";
 class AnswersComponent extends Component {
 	service = new Service()
 
+	constructor(props) {
+		super(props);
+		this.getAnswers()
+	}
+
 	state = {
 		allAnswers: []
 	}
 
-	async componentDidMount() {
-		const allAnswers = await this.service.getAllAnswers(`${this.props.person.firstName}_${this.props.person.lastName}`)
-		this.setState({
-			allAnswers
+	getAnswers() {
+		this.service.getAllAnswers(`${this.props.person.firstName}-${this.props.person.lastName}`)
+		.then((allAnswers) => {
+			console.log(allAnswers)
+			this.setState({
+				allAnswers
+			})
 		})
 	}
 

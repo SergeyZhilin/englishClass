@@ -19,7 +19,9 @@ const Answers = ({question, answers = [], number}) => {
 						<Answer
 						answer={answer}
 						number={index + 1}
-						key={index} />))
+						key={index}
+						/>
+					))
 				}
 			</ListGroup>
 		</React.Fragment>

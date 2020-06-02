@@ -3,7 +3,6 @@ import Question from "./Question";
 import Loader from "../Loader";
 
 class QuestionsComponent extends Component {
-
 	render() {
 		return (
 			<>
@@ -11,7 +10,7 @@ class QuestionsComponent extends Component {
 				<div className="container d-flex flex-column justify-content-center">
 					{
 						this.props.data.questions
-							? (this.props.data.questions.map((question, index) => (<Question key={index}/>)))
+							? (this.props.data.questions.map((question, index) => (<Question question={question} key={index}/>)))
 							: <Loader />
 					}
 				</div>

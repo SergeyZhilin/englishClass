@@ -8,6 +8,7 @@ import './index.scss';
 
 class MainPage extends Component {
     render() {
+
         return (
             <React.Fragment>
                 <Header/>

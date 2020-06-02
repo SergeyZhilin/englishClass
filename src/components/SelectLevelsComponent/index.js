@@ -8,7 +8,7 @@ export default function SelectLevelsComponent({ label, handleChange }) {
       <Form.Control
         as="select"
         defaultValue="Choose..."
-        name="englishDefault"
+        name="level"
         onChange={handleChange}
       >
         <option disabled>Choose...</option>

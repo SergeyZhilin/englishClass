@@ -35,22 +35,26 @@
     position: absolute;
     width: 70px;
     height: 70px;
-    margin-left:45%;
+    margin-left: 45%;
     margin-top: 10%;
     border: 8px solid #343a40;
     border-radius: 50%;
     animation: lds-ring 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #343a40 transparent transparent transparent;
   }
+
   .lds-ring div:nth-child(1) {
     animation-delay: -0.2s;
   }
+
   .lds-ring div:nth-child(2) {
     animation-delay: -0.3s;
   }
+
   .lds-ring div:nth-child(3) {
     animation-delay: -0.1s;
   }
+
   @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
@@ -59,4 +63,9 @@
       transform: rotate(360deg);
     }
   }
+}
+
+.auth-container {
+  width: 40vw;
+  margin: 3% auto;
 }

@@ -5,10 +5,10 @@ class ToggleButtonGroupControlled extends Component {
     render() {
         return (
             <ToggleButtonGroup bsPrefix="outline-questions" type="radio" name="options">
-                <ToggleButton variant="outline-dark" value={1}>Radio 1</ToggleButton>
-                <ToggleButton variant="outline-dark" value={2}>Radio 2</ToggleButton>
-                <ToggleButton variant="outline-dark" value={3}>Radio 3</ToggleButton>
-                <ToggleButton variant="outline-dark" value={4}>Radio 4</ToggleButton>
+                <ToggleButton variant="outline-dark" value={1}>{this.props.answers.answer_1}</ToggleButton>
+                <ToggleButton variant="outline-dark" value={2}>{this.props.answers.answer_2}</ToggleButton>
+                <ToggleButton variant="outline-dark" value={3}>{this.props.answers.answer_3}</ToggleButton>
+                <ToggleButton variant="outline-dark" value={4}>{this.props.answers.answer_4}</ToggleButton>
             </ToggleButtonGroup>
         );
     }

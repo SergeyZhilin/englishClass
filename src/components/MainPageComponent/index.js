@@ -4,38 +4,47 @@ import {Button, Col, Form} from "react-bootstrap";
 import QuestionsComponent from "../QuestionsComponent";
 import SelectLevelsComponent from "../SelectLevelsComponent";
 import Service from "../../services/service";
+import Loader from "../Loader";
 
 class MainPageComponent extends Component {
     service  = new Service()
+
+    constructor(props) {
+        super(props);
+        this.getQuestions()
+    }
 
     state = {
         openQuestions: false,
         questions: null,
         firstName: null,
         lastName: null,
-        englishDefault: null,
+        level: null,
         loading: true
     }
 
-    async getQuestions(level) {
-       const questions = await this.service.getTestByLevel(level)
-        console.log('questions', questions)
-
-        this.setState({
-            questions
-        })
+     getQuestions(level) {
+        this.service.getTestByLevel(level)
+            .then((questions) => {
+                console.log(questions)
+                this.setState({
+                    questions,
+                    loading: false
+                })
+            })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { lastName, firstName, englishDefault, openQuestions, questions } = this.state
+        const { level, openQuestions, questions } = this.state
 
-        if(lastName && firstName && englishDefault && (!questions || englishDefault !== prevState.englishDefault )) {
-           return this.getQuestions(englishDefault)
+        if( level && (!questions || level !== prevState.level )) {
+            this.getQuestions(level)
         }
 
-        if (lastName && firstName && englishDefault && !openQuestions &&questions) {
+        if (level && !openQuestions && questions) {
             this.setState({
-                openQuestions: true
+                openQuestions: true,
+                loading: false
             })
         }
     }
@@ -46,12 +55,16 @@ class MainPageComponent extends Component {
         })
     }
 
-    onSubmit({lastName, firstName, englishDefault}) {
-        this.service.submitTest({lastName, firstName, englishDefault})
+    onSubmit({lastName, firstName, level}) {
+        this.service.submitTest({
+            lastName,
+            firstName,
+            level
+        })
     }
 
     render() {
-        const {openQuestions, englishDefault, lastName, firstName, loading} = this.state;
+        const { openQuestions, level, lastName, firstName, loading } = this.state;
 
         return (
             <div className="main-page container">
@@ -74,18 +87,25 @@ class MainPageComponent extends Component {
                         </Form.Group>
                     </Form.Row>
                     <Form.Row>
-                        <SelectLevelsComponent label="Your English Level" handleChange={this.handleChange}/>
+                        <SelectLevelsComponent
+                            label="Your English Level"
+                            handleChange={this.handleChange}
+                        />
                     </Form.Row>
                 </Form>
                 {
-                    openQuestions && (
+                     loading ? <Loader /> : openQuestions && (
                         <>
                             <QuestionsComponent data={this.state} />
-                            <Button disabled={!lastName || !firstName} className="w-50 button" variant="warning" onClick={() => this.onSubmit({
-                                englishDefault,
-                                lastName,
-                                firstName
-                            })}>Submit</Button>
+                            <Button
+                                disabled={!lastName || !firstName}
+                                className="w-50 button"
+                                variant="warning"
+                                onClick={() => this.onSubmit({
+                                    level,
+                                    lastName,
+                                    firstName
+                            })}> Submit </Button>
                         </>
                     )
                 }

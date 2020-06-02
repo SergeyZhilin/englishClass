@@ -8,21 +8,24 @@ import Service from "../../services/service";
 import './index.scss'
 
 class ListOfTestsPage extends Component {
-
     service = new Service()
+    constructor(props) {
+        super(props);
+        this.getTests()
+    }
 
     state = {
         allTests: []
     }
 
-   async componentDidMount() {
-        const allTests = await this.service.getAllTests()
-        this.setState({
-            allTests
+    getTests() {
+    this.service.getAllTests()
+        .then((allTests) => {
+            this.setState({
+                allTests
+            })
         })
     }
-
-
 
     render() {
         console.log(this.state)

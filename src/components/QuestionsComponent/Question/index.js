@@ -3,13 +3,13 @@ import ToggleButtonGroupControlled from "../../ToggleButtonGroupControlled";
 
 class Question extends Component {
     render() {
+        console.log(this.props.question)
         return (
             <div className="question-section">
                 <p className="question-section__question">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Purus in mollis nunc sed.
+                    {this.props.question.question}
                 </p>
-                <ToggleButtonGroupControlled />
+                <ToggleButtonGroupControlled answers={this.props.question} />
             </div>
         )
     }

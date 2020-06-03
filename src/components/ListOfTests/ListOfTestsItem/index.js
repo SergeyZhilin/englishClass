@@ -13,10 +13,6 @@ class ListOfTestsItem extends Component {
 		open: false,
 	}
 
-	arrow = this.state.open
-		? <img alt="arrow" src={arrowUp}/>
-		: <img alt="arrow" src={arrowDown}/>
-
 	render() {
 		const { open } = this.state
 		const { person} = this.props
@@ -31,11 +27,17 @@ class ListOfTestsItem extends Component {
 							type="button"
 							variant="light"
 							className="arrow-btn"
-							onClick={() => this.setState((prevState) => ({
-								open: !prevState.open
-							}))}
+							onClick={() => {
+								this.setState((prevState) => ({
+										open: !prevState.open
+									}))
+
+							}}
 						>
-							{this.arrow}
+							{ this.state.open
+								? <img alt="arrow" src={arrowUp}/>
+								: <img alt="arrow" src={arrowDown}/>
+							}
 						</Button>
 					</Col>
 				</div>

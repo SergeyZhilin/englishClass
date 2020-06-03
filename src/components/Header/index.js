@@ -12,7 +12,7 @@ class Header extends Component {
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
-                    />{' '}
+                    />
                     English Class
                 </Navbar.Brand>
                 <Nav>

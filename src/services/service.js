@@ -16,9 +16,7 @@ export default class Service {
 
     async loginUser(payload) {
         const {data} = await this.post('/auth', payload)
-        console.log(data)
         return data;
-        // return await this.post('/auth', payload)
     }
 
     async createTest(payload) {

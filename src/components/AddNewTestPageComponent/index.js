@@ -18,8 +18,9 @@ class AddNewTestPageComponent extends Component {
 	 onSubmit = async (newTest) => {
 		 console.log(newTest)
 		const res = await this.service.createTest(newTest)
-		alert(res.data)
-	}
+		 alert(res.data)
+		 this.setState((prev) => {})
+	 }
 
 	render() {
 		return (
@@ -30,13 +31,13 @@ class AddNewTestPageComponent extends Component {
 					</Form.Row>
 					<Form.Group className="mb-lg-4" controlId="exampleForm.ControlTextarea1">
 						<Form.Label>Question</Form.Label>
-						<Form.Control onChange={this.handleChange} name="question" as="textarea" rows="3"/>
+						<Form.Control onChange={this.handleChange} value={this.state['question']} name="question" as="textarea" rows="3"/>
 					</Form.Group>
 					{
 						this.answerName.map(name => (
 							<Form.Group className="mb-lg-4" key={name}>
 								<Form.Label>Possible answer</Form.Label>
-								<Form.Control onChange={this.handleChange} name={name} type="text" />
+								<Form.Control onChange={this.handleChange} value={this.state[name]} name={name} type="text" />
 							</Form.Group>
 						))
 					}

@@ -28,9 +28,11 @@ export default class Service {
         return data
     }
 
-     submitTest(payload) {
-        console.log('payload', payload)
-        // return await axios.post('/', payload)
+     async submitTest(payload) {
+         const answersJson = JSON.stringify(payload.answers)
+         const data = {...payload, answers: answersJson}
+         console.log(data)
+         return await this.post('/', data )
     }
 
     async getAllTests() {

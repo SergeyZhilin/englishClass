@@ -20,18 +20,8 @@ class MainPageComponent extends Component {
         firstName: null,
         lastName: null,
         level: null,
+        answers: {},
         loading: true
-    }
-
-     getQuestions(level) {
-        this.service.getTestByLevel(level)
-            .then((questions) => {
-                console.log(questions)
-                this.setState({
-                    questions,
-                    loading: false
-                })
-            })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -49,23 +39,42 @@ class MainPageComponent extends Component {
         }
     }
 
+     getQuestions(level) {
+        this.service.getTestByLevel(level)
+            .then((questions) => {
+                this.setState({
+                    questions,
+                    loading: false
+                })
+            })
+    }
+
+    handelChangeAnswer = (e) => {
+        const id = this.state.questions.map(question => question.id)
+        this.setState({
+            answers: {
+                [id]: e
+            }
+        })
+    }
+
     handleChange = (el) => {
         this.setState({
             [el.target.name]: el.target.value
         })
     }
 
-    onSubmit({lastName, firstName, level}) {
+    onSubmit({lastName, firstName, level, answers}) {
         this.service.submitTest({
             lastName,
             firstName,
-            level
+            level,
+            answers
         })
     }
 
     render() {
-        const { openQuestions, level, lastName, firstName, loading } = this.state;
-
+        const { openQuestions, level, lastName, firstName, loading, answers } = this.state;
         return (
             <div className="main-page container">
                 <Form>
@@ -96,7 +105,7 @@ class MainPageComponent extends Component {
                 {
                      loading ? <Loader /> : openQuestions && (
                         <>
-                            <QuestionsComponent data={this.state} />
+                            <QuestionsComponent data={this.state} handelChangeAnswer={this.handelChangeAnswer} />
                             <Button
                                 disabled={!lastName || !firstName}
                                 className="w-50 button"
@@ -104,7 +113,8 @@ class MainPageComponent extends Component {
                                 onClick={() => this.onSubmit({
                                     level,
                                     lastName,
-                                    firstName
+                                    firstName,
+                                    answers
                             })}> Submit </Button>
                         </>
                     )

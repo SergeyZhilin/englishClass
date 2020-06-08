@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Col from "react-bootstrap/Col";
 import ListOfTestsItem from "./ListOfTestsItem";
+import Loader from "../Loader";
 
 
 class ListOfTests extends Component {
@@ -16,9 +17,9 @@ class ListOfTests extends Component {
 					</Col>
 				</Col>
 				{
-					this.props.allTests.map((person, i) => {
+					this.props.allTests ? this.props.allTests.map((person, i) => {
 						return <ListOfTestsItem person={person} key={i}/>
-					})
+					}) : <Loader />
 				}
 			</div>
 		)

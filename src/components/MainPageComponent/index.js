@@ -49,15 +49,6 @@ class MainPageComponent extends Component {
             })
     }
 
-    handelChangeAnswer = (e) => {
-        const id = this.state.questions.map(question => question.id)
-        this.setState({
-            answers: {
-                [id]: e
-            }
-        })
-    }
-
     handleChange = (el) => {
         this.setState({
             [el.target.name]: el.target.value
@@ -105,7 +96,7 @@ class MainPageComponent extends Component {
                 {
                      loading ? <Loader /> : openQuestions && (
                         <>
-                            <QuestionsComponent data={this.state} handelChangeAnswer={this.handelChangeAnswer} />
+                            <QuestionsComponent data={this.state} />
                             <Button
                                 disabled={!lastName || !firstName}
                                 className="w-50 button"

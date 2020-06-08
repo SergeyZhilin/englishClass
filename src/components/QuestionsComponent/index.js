@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
 import Question from "./Question";
-import Loader from "../Loader";
 
 class QuestionsComponent extends Component {
+	state  = {}
+
+	handelChangeAnswer = (e) => {
+		this.setState((prevState) => ({
+			...prevState,
+			// : e
+			}))
+	}
+
 	render() {
+		console.log(this.props.data.questions)
+
+		console.log(this.state)
 		return (
 			<>
 				<p>Please answer these questions</p>
@@ -12,9 +23,9 @@ class QuestionsComponent extends Component {
 						this.props.data.questions &&
 						(this.props.data.questions.map((question, index) => {
 							return <Question
-								handelChangeAnswer={this.props.handelChangeAnswer}
 								question={question}
 								key={index}
+								handleChange={this.handelChangeAnswer}
 							/>
 						}))
 					}

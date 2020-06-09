@@ -12,7 +12,8 @@ class AnswersComponent extends Component {
     }
 
     getAnswers = async () => {
-        const { allAnswers } = await this.props.getAllAnswers(`${this.props.person.firstName}-${this.props.person.lastName}`)
+        await this.props.getAllAnswers(`${this.props.person.firstName}-${this.props.person.lastName}`)
+
     }
 
     render() {
@@ -20,7 +21,7 @@ class AnswersComponent extends Component {
             <React.Fragment>
                 <div className="d-flex flex-column justify-content-center answers-list">
                     {
-                        this.props.allAnswers ? this.props.allAnswers.map(({question, answers}, index) => (
+                        this.props.allAnswers ? this.props.allAnswers.map(({ question, answers}, index) => (
                             <Answers
                                 question={question}
                                 answers={answers}

@@ -43,7 +43,12 @@ class ListOfTestsItem extends Component {
 				</div>
 				<Collapse in={open}>
 					<div id="list-item-collapse">
-						<AnswersComponent person={person}/>
+						{
+							open
+								? <AnswersComponent person={person}/>
+								: null
+						}
+
 					</div>
 				</Collapse>
 			</div>

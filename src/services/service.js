@@ -26,12 +26,13 @@ export default class Service {
     }
 
      getTestByLevel = async (payload) => {
-         const {data} = await this.get(`/`,{ params: { 'level': payload }})
+         const { data } = await this.get(`/`,{ params: { 'level': payload }})
          console.log(data)
          return data
     }
 
     submitTest = async (payload) =>  {
+        console.log(payload)
          const answersJson = JSON.stringify(payload.answers)
          const data = {...payload, answers: answersJson}
          console.log(data)
@@ -44,7 +45,7 @@ export default class Service {
         return data;
     }
 
-     getAllAnswers = async ({payload}) => {
+     getAllAnswers = async ({ payload }) => {
          console.log(payload)
         const { data } = await this.get(`/list/${payload}`)
         return data;

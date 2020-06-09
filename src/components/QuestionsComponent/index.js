@@ -2,30 +2,33 @@ import React, {Component} from 'react';
 import Question from "./Question";
 
 class QuestionsComponent extends Component {
-	state  = {}
-
-	handelChangeAnswer = (e) => {
-		this.setState((prevState) => ({
-			...prevState,
-			// : e
-			}))
+	state  = {
+		answers: []
 	}
 
-	render() {
-		console.log(this.props.data.questions)
+	handelChange = (e, questionId) => {
+		this.setState((prevState) => ({
+			...prevState,
+			[questionId]: e
+		}))
+	}
 
-		console.log(this.state)
+	questionId = []
+	render() {
+
 		return (
 			<>
 				<p>Please answer these questions</p>
 				<div className="container d-flex flex-column justify-content-center">
 					{
-						this.props.data.questions &&
-						(this.props.data.questions.map((question, index) => {
+						this.props.data &&
+						(this.props.data.map((question, index) => {
+							this.questionId.push(question.id)
 							return <Question
+								questionId={this.questionId[index]}
 								question={question}
 								key={index}
-								handleChange={this.handelChangeAnswer}
+								handleChange={this.handelChange}
 							/>
 						}))
 					}

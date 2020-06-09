@@ -4,12 +4,14 @@ import {
     AUTH_USER_REQUEST,
     AUTH_USER_SUCCESS,
     AUTH_USER_ERROR,
-    GET_ALL_TESTS_SUCCESS, GET_ALL_ANSWERS_SUCCESS
+    GET_ALL_TESTS_SUCCESS, GET_ALL_ANSWERS_SUCCESS, GET_QUESTIONS_BY_LEVEL_SUCCESS, SET_QUESTION_WITH_ANSWER
 } from '../constants'
 
 const initialState = {
     allTests: [],
-    allAnswers: []
+    allAnswers: [],
+    questionsByLevel: [],
+    questionWithAnswer: {}
 }
 
  function rootReducer(state = initialState, action) {
@@ -31,6 +33,16 @@ const initialState = {
             return {
                 ...state,
                 allAnswers: payload
+            }
+        case GET_QUESTIONS_BY_LEVEL_SUCCESS:
+            return {
+                ...state,
+                questionsByLevel: payload
+            }
+        case SET_QUESTION_WITH_ANSWER:
+            return {
+                ...state,
+                questionWithAnswer: { ...state.questionWithAnswer, ...payload }
             }
 
         default:

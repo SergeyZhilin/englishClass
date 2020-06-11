@@ -3,8 +3,10 @@ import {connect} from "react-redux";
 import { authUserRequest} from "../../redux/actions/actions";
 
 
-const mapStateToProps = (state) => {
-
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
 }
 
 const mapDispatchToProps = dispatch => {

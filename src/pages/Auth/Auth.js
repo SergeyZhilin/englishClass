@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Service from "../../services/service";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import {history} from "../../helpers/history";
 
 import '../MainPage/index.scss';
 
@@ -14,18 +15,23 @@ export default class Auth extends Component {
 
     state = {}
 
+
     handleChange = (el) => {
         this.setState({
             [el.target.name]: el.target.value
         })
     }
 
-     onSubmit({firstName, lastName, password }) {
-        this.props.authUser({firstName, lastName, password })
+     onSubmit(payload) {
+       this.props.authUser(payload)
+       history.push('/')
     }
 
     render() {
-        const { firstName, lastName, password} = this.state
+
+        if (localStorage.getItem('user')) {
+            history.push('/')
+        }
 
         return (
             <React.Fragment>
@@ -47,11 +53,7 @@ export default class Auth extends Component {
                         <Form.Control name="password" onChange={this.handleChange} type="password" placeholder="Password" />
 
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={() => this.onSubmit({
-                        firstName,
-                        lastName,
-                        password
-                    })}>
+                    <Button variant="primary" type="submit" onClick={() => this.onSubmit(this.state)}>
                         Submit
                     </Button>
                 </Form>

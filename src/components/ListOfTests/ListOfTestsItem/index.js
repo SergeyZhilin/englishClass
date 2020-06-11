@@ -6,6 +6,8 @@ import AnswersComponent from "../../AnswersComponent";
 
 import arrowUp from "../../../assets/arrow-up.svg"
 import arrowDown from "../../../assets/arrow-down.svg"
+import {connect} from "react-redux";
+import {personResult} from "../../../helpers/helpers";
 
 class ListOfTestsItem extends Component {
 
@@ -22,7 +24,7 @@ class ListOfTestsItem extends Component {
 					<Col> {person.firstName} {person.lastName} </Col>
 					<Col md="6" xs="8" lg="4">
 						<div> {person.level} </div>
-						<div> {person.rightAnswerCount}/20 </div>
+						<div> {personResult(person)} </div>
 						<Button
 							type="button"
 							variant="light"
@@ -31,7 +33,6 @@ class ListOfTestsItem extends Component {
 								this.setState((prevState) => ({
 										open: !prevState.open
 									}))
-
 							}}
 						>
 							{ this.state.open
@@ -56,4 +57,10 @@ class ListOfTestsItem extends Component {
 	}
 }
 
-export default ListOfTestsItem
+const mapStateToProps = state => {
+	return {
+		questionsCount: state.allAnswers
+	}
+}
+
+export default connect(mapStateToProps)(ListOfTestsItem)

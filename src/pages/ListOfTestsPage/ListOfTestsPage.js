@@ -15,7 +15,6 @@ class ListOfTestsPage extends Component {
     getTests = async () => await this.props.getAllTests()
 
     render() {
-        console.log('state',this.state)
         return (
             <React.Fragment>
                 <Header/>

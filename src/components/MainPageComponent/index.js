@@ -6,7 +6,8 @@ import {getQuestionsByLevelRequest, submitDoneTestRequest} from "../../redux/act
 const mapStateToProps = (state) => {
     return  {
         questionsByLevel: state.questionsByLevel,
-        questionWithAnswer: state.questionWithAnswer
+        questionWithAnswer: state.questionWithAnswer,
+        user: state.user
     }
 }
 

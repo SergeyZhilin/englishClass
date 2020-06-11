@@ -11,6 +11,7 @@ class ToggleButtonGroupControlled extends Component {
     }
 
     render() {
+        const { answers } = this.props
         return (
             <ToggleButtonGroup
                 bsPrefix="outline-questions"
@@ -18,10 +19,10 @@ class ToggleButtonGroupControlled extends Component {
                 name="options"
                 onChange={ this.handelChange}
             >
-                <ToggleButton variant="outline-dark" value="1">{this.props.answers.answer_1}</ToggleButton>
-                <ToggleButton variant="outline-dark" value="2">{this.props.answers.answer_2}</ToggleButton>
-                <ToggleButton variant="outline-dark" value="3">{this.props.answers.answer_3}</ToggleButton>
-                <ToggleButton variant="outline-dark" value="4">{this.props.answers.answer_4}</ToggleButton>
+                <ToggleButton variant="outline-dark" value="answer_1">{answers.answer_1}</ToggleButton>
+                <ToggleButton variant="outline-dark" value="answer_2">{answers.answer_2}</ToggleButton>
+                <ToggleButton variant="outline-dark" value="answer_3">{answers.answer_3}</ToggleButton>
+                <ToggleButton variant="outline-dark" value="answer_4">{answers.answer_4}</ToggleButton>
             </ToggleButtonGroup>
         );
     }

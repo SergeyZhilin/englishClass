@@ -1,10 +1,13 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { Route, Switch, Redirect} from 'react-router-dom';
 
 import Auth from "./pages/Auth";
 import MainPage from "./pages/MainPage";
 import ListOfTestsPage from "./pages/ListOfTestsPage";
 import AddNewTestPage from "./pages/AddNewTestPage";
+import Results from "./pages/Results";
+import { history } from "./helpers/history";
+import { isAdmin } from "./helpers/helpers";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,15 +15,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (
-        <Router>
             <Switch>
                 <Route exact path="/" component={MainPage} />
-                <Route path="/list" component={ListOfTestsPage} />
-                <Route path="/add-test" component={AddNewTestPage} />
-                <Route path="/auth" component={Auth} />
+                <Route path="/results" component={Results} />
+                { isAdmin() && (
+                        <>
+                            <Route path="/list" component={ListOfTestsPage} />
+                            <Route path="/add-test" component={AddNewTestPage}  />
+                        </>
+                )}
+                <Route exact path="/auth" component={Auth} />
                 <Redirect path="*" to='/auth'/>
             </Switch>
-        </Router>
     );
 }
 

@@ -12,7 +12,7 @@ import {
     GET_ALL_TESTS_SUCCESS,
     GET_QUESTIONS_BY_LEVEL_ERROR,
     GET_QUESTIONS_BY_LEVEL_REQUEST,
-    GET_QUESTIONS_BY_LEVEL_SUCCESS, SET_QUESTION_WITH_ANSWER,
+    GET_QUESTIONS_BY_LEVEL_SUCCESS, SET_PERSON, SET_QUESTION_WITH_ANSWER,
     SUBMIT_DONE_TEST_ERROR, SUBMIT_DONE_TEST_REQUEST, SUBMIT_DONE_TEST_SUCCESS
 } from '../constants'
 
@@ -31,7 +31,6 @@ export const authUserSuccess = (payload) => {
 }
 
 export const addNewTestRequest = (payload) => {
-    console.log('add ', payload)
     return {
         type: ADD_NEW_TEST_REQUEST,
         payload
@@ -132,6 +131,13 @@ export const submitDoneTestSError = (payload) => {
 export const setQuestionWithAnswer = (payload) => {
     return {
         type: SET_QUESTION_WITH_ANSWER,
+        payload
+    }
+}
+
+export const setPerson = (payload) => {
+    return {
+        type: SET_PERSON,
         payload
     }
 }

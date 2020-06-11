@@ -6,10 +6,14 @@ import App from './App';
 import store from "./store";
 
 import './index.css';
+import {Router} from "react-router";
+import {history} from "./helpers/history";
 
 const app = (
     <Provider store={store}>
-        <App />
+        <Router history={history}>
+            <App />
+        </Router>
     </Provider>
 )
 

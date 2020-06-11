@@ -12,7 +12,7 @@ class ListOfTests extends Component {
 					<h5> Name </h5>
 					<Col md="6" xs="8" lg="4" >
 						<h5> Level </h5>
-						<h5> Right Answers</h5>
+						<h5> Right Answers </h5>
 						<span></span>
 					</Col>
 				</Col>

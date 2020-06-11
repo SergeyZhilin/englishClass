@@ -21,10 +21,13 @@ class AnswersComponent extends Component {
             <React.Fragment>
                 <div className="d-flex flex-column justify-content-center answers-list">
                     {
-                        this.props.allAnswers ? this.props.allAnswers.map(({ question, answers}, index) => (
+                        this.props.allAnswers
+                            ? this.props.allAnswers.map(({ question, answers, rightAnswer, userAnswer}, index) => (
                             <Answers
                                 question={question}
                                 answers={answers}
+                                rightAnswer={rightAnswer}
+                                userAnswer={userAnswer}
                                 key={index}
                                 number={index + 1}
                             />

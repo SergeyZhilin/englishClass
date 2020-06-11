@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Col, Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 
 import QuestionsComponent from "../QuestionsComponent";
 import SelectLevelsComponent from "../SelectLevelsComponent";
 import Service from "../../services/service";
 import Loader from "../Loader";
+import {disabled} from "../../helpers/helpers";
+import {history} from "../../helpers/history";
 
 class MainPageComponent extends Component {
     service  = new Service()
@@ -16,8 +18,6 @@ class MainPageComponent extends Component {
 
     state = {
         openQuestions: false,
-        firstName: null,
-        lastName: null,
         level: null,
         loading: true
     }
@@ -35,6 +35,11 @@ class MainPageComponent extends Component {
                 loading: false
             })
         }
+
+        if ( !localStorage.getItem('user') ) {
+            history.push('/auth')
+        }
+
     }
 
     async getQuestions (level)  {
@@ -52,31 +57,20 @@ class MainPageComponent extends Component {
     }
 
     onSubmit = async (payload) => {
-        return await this.props.submitTest(payload)
+        const id = localStorage.getItem('user')
+        if (!id) {
+            alert('Login first')
+            history.push('/auth')
+        }
+        return await this.props.submitTest({...payload, id})
     }
 
     render() {
-        const { openQuestions, level, lastName, firstName, loading } = this.state;
+        const { openQuestions, level, loading } = this.state;
+        const { questionWithAnswer, questionsByLevel } = this.props;
         return (
             <div className="main-page container">
                 <Form>
-                    <Form.Row>
-                        <Form.Group as={Col} controlId="formFirstName">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text"
-                                          placeholder="First Name"
-                                          name="firstName"
-                                          onChange={this.handleChange}
-                            />
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formLastName">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="text"
-                                          placeholder="Last Name"
-                                          name="lastName"
-                                          onChange={this.handleChange}/>
-                        </Form.Group>
-                    </Form.Row>
                     <Form.Row>
                         <SelectLevelsComponent
                             label="Your English Level"
@@ -87,16 +81,14 @@ class MainPageComponent extends Component {
                 {
                     loading ? <Loader /> : openQuestions && (
                         <>
-                            <QuestionsComponent data={this.props.questionsByLevel} />
+                            <QuestionsComponent data={questionsByLevel} />
                             <Button
-                                disabled={!lastName || !firstName}
+                                disabled={disabled(questionWithAnswer, questionsByLevel)}
                                 className="w-50 button"
                                 variant="warning"
                                 onClick={() => this.onSubmit({
                                     level,
-                                    lastName,
-                                    firstName,
-                                    answers: this.props.questionWithAnswer
+                                    answers: questionWithAnswer
                                 })}> Submit </Button>
                         </>
                     )

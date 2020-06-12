@@ -1,23 +1,28 @@
 import {
     ADD_NEW_TEST_ERROR,
     ADD_NEW_TEST_SUCCESS,
-    AUTH_USER_REQUEST,
     AUTH_USER_SUCCESS,
-    AUTH_USER_ERROR,
-    GET_ALL_TESTS_SUCCESS, GET_ALL_ANSWERS_SUCCESS, GET_QUESTIONS_BY_LEVEL_SUCCESS, SET_QUESTION_WITH_ANSWER, SET_PERSON
+    GET_ALL_TESTS_SUCCESS,
+    GET_ALL_ANSWERS_SUCCESS,
+    GET_QUESTIONS_BY_LEVEL_SUCCESS,
+    SET_QUESTION_WITH_ANSWER,
+    SET_PERSON,
+    PUT_USER
 } from '../constants'
 
 const initialState = {
     allTests: [],
-    allAnswers: [],
+    allAnswers: {},
     questionsByLevel: [],
     questionWithAnswer: {},
     user: null,
-    person: null
+    person: null,
+    userAnswer: null
 }
 
  function rootReducer(state = initialState, action) {
     const {type, payload} = action
+
     switch (type) {
         case ADD_NEW_TEST_SUCCESS:
             return state
@@ -37,9 +42,16 @@ const initialState = {
             }
 
         case GET_ALL_ANSWERS_SUCCESS:
+            const obj = Object.setPrototypeOf(state.allAnswers, payload );
             return {
                 ...state,
-                allAnswers: payload
+                allAnswers: obj
+            }
+
+        case PUT_USER:
+            return {
+                ...state,
+                userAnswer: payload.user
             }
         case GET_QUESTIONS_BY_LEVEL_SUCCESS:
             return {
@@ -51,7 +63,6 @@ const initialState = {
                 ...state,
                 questionWithAnswer: { ...state.questionWithAnswer, ...payload }
             }
-
         case SET_PERSON:
             return {
                 ...state,

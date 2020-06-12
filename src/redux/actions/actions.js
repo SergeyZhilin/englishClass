@@ -1,7 +1,7 @@
 import {
     ADD_NEW_TEST_ERROR,
     ADD_NEW_TEST_REQUEST,
-    ADD_NEW_TEST_SUCCESS,
+    ADD_NEW_TEST_SUCCESS, AUTH_USER_ERROR,
     AUTH_USER_REQUEST,
     AUTH_USER_SUCCESS,
     GET_ALL_ANSWERS_ERROR,
@@ -12,7 +12,7 @@ import {
     GET_ALL_TESTS_SUCCESS,
     GET_QUESTIONS_BY_LEVEL_ERROR,
     GET_QUESTIONS_BY_LEVEL_REQUEST,
-    GET_QUESTIONS_BY_LEVEL_SUCCESS, SET_PERSON, SET_QUESTION_WITH_ANSWER,
+    GET_QUESTIONS_BY_LEVEL_SUCCESS, PUT_USER, SET_PERSON, SET_QUESTION_WITH_ANSWER,
     SUBMIT_DONE_TEST_ERROR, SUBMIT_DONE_TEST_REQUEST, SUBMIT_DONE_TEST_SUCCESS
 } from '../constants'
 
@@ -26,6 +26,13 @@ export const authUserRequest = (payload) => {
 export const authUserSuccess = (payload) => {
     return {
         type: AUTH_USER_SUCCESS,
+        payload
+    }
+}
+
+export const authUserError = (payload) => {
+    return {
+        type: AUTH_USER_ERROR,
         payload
     }
 }
@@ -138,6 +145,13 @@ export const setQuestionWithAnswer = (payload) => {
 export const setPerson = (payload) => {
     return {
         type: SET_PERSON,
+        payload
+    }
+}
+
+export const putUser = (payload) => {
+    return {
+        type: PUT_USER,
         payload
     }
 }

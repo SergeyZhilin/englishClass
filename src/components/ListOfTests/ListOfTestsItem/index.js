@@ -2,12 +2,14 @@ import React, {Component} from "react";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import {connect} from "react-redux";
+import {personResult} from "../../../helpers/helpers";
+
 import AnswersComponent from "../../AnswersComponent";
 
 import arrowUp from "../../../assets/arrow-up.svg"
 import arrowDown from "../../../assets/arrow-down.svg"
-import {connect} from "react-redux";
-import {personResult} from "../../../helpers/helpers";
+
 
 class ListOfTestsItem extends Component {
 
@@ -45,7 +47,7 @@ class ListOfTestsItem extends Component {
 				<Collapse in={open}>
 					<div id="list-item-collapse">
 						{
-							open
+							open && person.answers
 								? <AnswersComponent person={person}/>
 								: null
 						}

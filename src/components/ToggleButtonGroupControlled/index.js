@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ToggleButton, ToggleButtonGroup} from "react-bootstrap";
-import {setQuestionWithAnswer} from "../../redux/actions/actions";
 import {connect} from "react-redux";
+import {setQuestionWithAnswer} from "../../redux/actions/actions";
 
 class ToggleButtonGroupControlled extends Component {
 

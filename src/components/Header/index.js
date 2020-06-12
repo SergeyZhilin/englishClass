@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import {Nav, Navbar} from 'react-bootstrap';
-import {Route, Switch} from "react-router-dom";
-import ListOfTestsPage from "../../pages/ListOfTestsPage";
-import AddNewTestPage from "../../pages/AddNewTestPage";
 
 class Header extends Component {
     render() {

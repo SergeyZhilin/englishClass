@@ -1,6 +1,4 @@
-import {
-    all, call, takeEvery, put,
-} from 'redux-saga/effects';
+import {all, call, takeEvery, put,} from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
 import {
@@ -8,15 +6,25 @@ import {
     AUTH_USER_REQUEST,
     GET_ALL_ANSWERS_REQUEST,
     GET_ALL_TESTS_REQUEST,
-    GET_QUESTIONS_BY_LEVEL_REQUEST, SUBMIT_DONE_TEST_REQUEST
+    GET_QUESTIONS_BY_LEVEL_REQUEST,
+    SUBMIT_DONE_TEST_REQUEST
 } from "../constants";
+
 import Service from "../../services/service";
+
 import {
+    addNewTestError,
     addNewTestSuccess,
+    authUserError,
     authUserSuccess,
     getAllAnswersSuccess,
     getAllTestsSuccess,
-    getQuestionsByLevelSuccess, setPerson, submitDoneTestSuccess
+    getQuestionsByLevelError,
+    getQuestionsByLevelSuccess,
+    putUser,
+    setPerson,
+    submitDoneTestSError,
+    submitDoneTestSuccess
 } from "../actions/actions";
 
 const service = new Service()
@@ -26,10 +34,13 @@ function* addNewTestRequest(payload) {
         const data = yield call(service.createTest, payload);
         yield put(addNewTestSuccess(data))
         return data
-
-    } catch (err) {}
+    } catch (err) {
+        if (err) {
+            yield put(addNewTestError(err))
+            alert(err.response.data.message)
+        }
+    }
 }
-
 
 function* authUserRequest(payload) {
     try {
@@ -37,8 +48,12 @@ function* authUserRequest(payload) {
         localStorage.setItem('user', data.id)
         yield put(authUserSuccess(data))
         yield put(push('/'))
-    } catch (err) {}
-
+    } catch (err) {
+        if (err) {
+            yield put(authUserError(err))
+            alert(err.response.data.message)
+        }
+    }
 }
 
 function* getAllTestsRequest() {
@@ -46,18 +61,22 @@ function* getAllTestsRequest() {
         const data = yield call(service.getAllTests);
         yield put(getAllTestsSuccess(data))
         yield getPerson(data)
-
     } catch (err) {}
 }
 
 function* getAllAnswersRequest(payload) {
+    localStorage.setItem('params', payload.payload)
     try {
         const data = yield call(service.getAllAnswers, payload);
-        yield put(getAllAnswersSuccess(data))
-
-    } catch (err) {}
+        const user = localStorage.getItem('params')
+        yield put(getAllAnswersSuccess({ [user]: data} ))
+        yield put(putUser({ user } ))
+    } catch (err) {
+        if (err) {
+            yield put(getQuestionsByLevelError(err))
+        }
+    }
 }
-
 
 function* getPerson(allTests) {
     const person = allTests.find((person) => {
@@ -71,7 +90,12 @@ function* getQuestionsByLevelRequest({payload}) {
         const data = yield call(service.getTestByLevel, payload);
         yield put(getQuestionsByLevelSuccess(data))
         localStorage.setItem('questionsCount', data.length )
-    } catch (err) {}
+    } catch (err) {
+        if (err) {
+            yield put(getQuestionsByLevelError(err))
+            alert(err.response.data.message)
+        }
+    }
 }
 
 
@@ -81,9 +105,12 @@ function* submitDoneTestRequest({payload}) {
         yield put(submitDoneTestSuccess(data))
         yield put( push('/results'))
         window.location.replace('/results')
-
-
-    } catch (err) {}
+    } catch (err) {
+        if (err) {
+            yield put(submitDoneTestSError(err))
+            alert(err.response.data.message)
+        }
+    }
 }
 
 const sagas = all([

@@ -1,6 +1,6 @@
 import React from 'react';
 import ListGroup from "react-bootstrap/ListGroup";
-import {checkAnswerStatus} from "../../../helpers/helpers";
+import { checkAnswerStatus } from "../../../helpers/helpers";
 
 const Answer = ({answer, rightAnswer, userAnswer, number}) => {
 	const status = checkAnswerStatus(answer, rightAnswer, userAnswer)
@@ -13,6 +13,7 @@ const Answer = ({answer, rightAnswer, userAnswer, number}) => {
 }
 
 const Answers = ({question, answers = [], rightAnswer,userAnswer,  number}) => {
+
 	return (
 		<React.Fragment>
 			<div className='question'> {`${number}. ${question}`} </div>

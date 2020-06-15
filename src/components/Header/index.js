@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
-import {Nav, Navbar} from 'react-bootstrap';
+import {Button, Nav, Navbar} from 'react-bootstrap';
 
 class Header extends Component {
+
+    handleClick() {
+        localStorage.clear()
+        window.location.replace('/auth')
+    }
+
     render() {
         return (
             <Navbar bg="dark" variant="dark" className="justify-content-between">
@@ -15,14 +21,22 @@ class Header extends Component {
                     />
                     English Class
                 </Navbar.Brand>
+                <Nav>
                 {
                     localStorage.getItem('user') === '1' && (
-                        <Nav>
+                        <>
                             <Nav.Link href="/list">List Of Test</Nav.Link>
                             <Nav.Link href="/add-test">Add New Test Items</Nav.Link>
-                        </Nav>
+                         </>
+
                     )
                 }
+                {
+                    window.location.pathname !== '/auth' &&
+                        <Nav.Link onClick={this.handleClick}>Logout</Nav.Link>
+                }
+
+                </Nav>
             </Navbar>
         )
     }

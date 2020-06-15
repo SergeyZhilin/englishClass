@@ -3,7 +3,6 @@ import {Button} from "react-bootstrap";
 import Collapse from "react-bootstrap/Collapse";
 import {connect} from "react-redux";
 import {getAllTestsRequest} from "../../redux/actions/actions";
-import {history} from "../../helpers/history";
 import {personResult} from "../../helpers/helpers";
 
 import Header from "../../components/Header";
@@ -12,11 +11,12 @@ import AnswersComponent from "../../components/AnswersComponent";
 
 import '../MainPage/index.scss';
 
-
-
 class Results extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
         this.getTests()
     }
 

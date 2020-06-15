@@ -71,6 +71,12 @@ export const getAllTestsSuccess= (payload) => {
     }
 }
 
+export const getAllTestsError= () => {
+    return {
+        type: GET_ALL_TESTS_ERROR,
+    }
+}
+
 export const getAllAnswersRequest = (payload) => {
     return {
         type: GET_ALL_ANSWERS_REQUEST,

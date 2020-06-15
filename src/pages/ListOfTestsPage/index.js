@@ -10,9 +10,11 @@ import './index.scss'
 
 
 class ListOfTestsPage extends Component {
-
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
         this.getTests()
     }
 

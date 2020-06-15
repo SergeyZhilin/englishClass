@@ -14,10 +14,10 @@ class AnswersComponent extends Component {
 
 	constructor(props) {
 		super(props);
-		this.getAnswers()
 	}
 
 	componentDidMount() {
+		this.getAnswers()
 		const user = localStorage.getItem('params')
 		this.setState({
 			user

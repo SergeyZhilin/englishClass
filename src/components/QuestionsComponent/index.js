@@ -21,8 +21,9 @@ class QuestionsComponent extends Component {
           <b>Please answer these questions</b>
         </p>
         <div className="container d-flex flex-column justify-content-left">
-          {this.props.data &&
-            this.props.data.map((question, index) => {
+          {
+              this.props.data &&
+              this.props.data.map((question, index) => {
               this.questionId.push(question.id);
               return (
                 <Question

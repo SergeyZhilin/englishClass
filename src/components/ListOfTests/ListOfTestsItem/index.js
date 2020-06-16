@@ -26,7 +26,9 @@ class ListOfTestsItem extends Component {
 					<Col> {person.firstName} {person.lastName} </Col>
 					<Col md="6" xs="8" lg="4">
 						<div> {person.level} </div>
-						<div> {personResult(person)} </div>
+						<div style = {{
+							justifyContent: 'center'
+						}}> {personResult(person)} </div>
 						<Button
 							type="button"
 							variant="light"

@@ -10,6 +10,7 @@ import Footer from "../../components/Footer";
 import AnswersComponent from "../../components/AnswersComponent";
 
 import '../MainPage/index.scss';
+import {history} from "../../helpers/history";
 
 class Results extends Component {
     constructor(props) {
@@ -33,8 +34,13 @@ class Results extends Component {
     getTests = async () => await this.props.getAllTests()
 
 
+
     render() {
         const { open } = this.state
+
+        if ( !localStorage.getItem('user') ) {
+            history.push('/auth')
+        }
 
         return (
             <React.Fragment>

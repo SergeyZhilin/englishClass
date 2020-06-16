@@ -1,5 +1,5 @@
 .list-of-tests {
-  width: 75vw;
+  width: 60vw;
   margin: auto;
 
   .list-item-wrapper {
@@ -57,6 +57,7 @@
 
 #list-item-collapse {
   border-top: 1px solid #ccc;
+  width: inherit;
 }
 
 .list-group-item {

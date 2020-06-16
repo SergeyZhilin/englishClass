@@ -3,7 +3,6 @@ import Col from "react-bootstrap/Col";
 import ListOfTestsItem from "./ListOfTestsItem";
 import Loader from "../Loader";
 
-
 class ListOfTests extends Component {
 	render() {
 		return (
@@ -12,7 +11,11 @@ class ListOfTests extends Component {
 					<h5> Name </h5>
 					<Col md="6" xs="8" lg="4" >
 						<h5> Level </h5>
+						<div  style = {{
+							justifyContent: 'flex-end'
+						}}>
 						<h5> Right Answers </h5>
+						</div>
 						<span></span>
 					</Col>
 				</Col>

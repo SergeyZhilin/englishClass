@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 export default class Service {
-    _baseURL = 'http://localhost:3030'
+
+    _baseURL = process.env.REACT_APP_HOST_ENV
 
     async post(url, payload) {
        return await axios.post(`${this._baseURL}${url}`, payload)

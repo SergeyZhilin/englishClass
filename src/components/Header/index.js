@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Nav, Navbar} from 'react-bootstrap';
+import { Nav, Navbar} from 'react-bootstrap';
 
 class Header extends Component {
 
@@ -35,7 +35,6 @@ class Header extends Component {
                     window.location.pathname !== '/auth' &&
                         <Nav.Link onClick={this.handleClick}>Logout</Nav.Link>
                 }
-
                 </Nav>
             </Navbar>
         )

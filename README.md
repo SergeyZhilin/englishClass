@@ -13,7 +13,14 @@ These instructions will get you a copy of the project up and running on your loc
 #### **Setup**
 > Install deps in package.json file and start app: <br/>
 >
+####development mode
 ```
 npm install
+npm run start
+``` 
+####production mode
+```
+npm install
+npm run build
 npm run start
 ``` 

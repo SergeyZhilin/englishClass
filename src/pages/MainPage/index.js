@@ -8,6 +8,7 @@ import Footer from "../../components/Footer";
 import './index.scss';
 
 class MainPage extends Component {
+
     render() {
 
         if ( !localStorage.getItem('user') ) {

@@ -41,11 +41,11 @@ class Auth extends Component {
                     <Form.Text className="text-muted mb-3">
                         Please use your credentials.
                     </Form.Text>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicFirstName">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control name="firstName" onChange={this.handleChange} type="text" placeholder="First name" />
                     </Form.Group>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group controlId="formBasicLastName">
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control name="lastName" onChange={this.handleChange} type="text" placeholder="Last name" />
                     </Form.Group>

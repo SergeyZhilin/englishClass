@@ -5,22 +5,21 @@ English testing application
 These instructions will get you a copy of the project up and running on your local machine.
 
 #### **Clone**
->Clone this repo to your local machine using:
->
+>1.Clone this repo to your local machine using:
+
 `https://github.com/SergeyZhilin/englishClass.git` or `git@github.com
 :SergeyZhilin/englishClass.git` 
 
 #### **Setup**
-> Install deps in package.json file and start app: <br/>
->
-####development mode
+> 2.Install deps in package.json file <br/>
 ```
 npm install
-npm run start
 ``` 
-####production mode
+> 3.Set service url in '.env' file <br/>
+
+
+>4.Build and start your app <br/>
+
 ```
-npm install
-npm run build
-npm run start
-``` 
+ npm run build
+ ``` 

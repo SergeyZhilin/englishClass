@@ -1,26 +1,63 @@
 import React, {Component} from 'react';
-import {Col, Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
+import {connect} from "react-redux";
+import {
+    getQuestionsByLevelRequest,
+    submitDoneTestRequest
+} from "../../redux/actions/actions";
+import {disabled} from "../../helpers/helpers";
+import {history} from "../../helpers/history";
+
+import Service from "../../services/service";
 
 import QuestionsComponent from "../QuestionsComponent";
 import SelectLevelsComponent from "../SelectLevelsComponent";
+import Loader from "../Loader";
+
 
 class MainPageComponent extends Component {
+    service  = new Service()
+
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.getQuestions()
+    }
 
     state = {
         openQuestions: false,
-        firstName: null,
-        lastName: null,
-        englishDefault: null,
+        level: null,
+        loading: true
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {lastName, firstName, englishDefault, openQuestions} = this.state
+        const { level, openQuestions } = this.state
 
-        if (lastName && firstName && englishDefault && !openQuestions) {
+        if( level && (!this.props.questionsByLevel || level !== prevState.level )) {
+            this.getQuestions(level)
+        }
+
+        if (level && !openQuestions && this.props.questionsByLevel) {
             this.setState({
-                openQuestions: true
+                openQuestions: true,
+                loading: false
             })
         }
+
+        if ( !localStorage.getItem('user') ) {
+            history.push('/auth')
+        }
+
+    }
+
+    async getQuestions (level)  {
+        const questions = await this.props.getQuestionsByLevel(level)
+        this.setState({
+            loading: false
+        })
+        return questions
     }
 
     handleChange = (el) => {
@@ -29,41 +66,62 @@ class MainPageComponent extends Component {
         })
     }
 
+    onSubmit = async (payload) => {
+        const id = localStorage.getItem('user')
+        if (!id) {
+            alert('Login first')
+            history.push('/auth')
+        }
+        return await this.props.submitTest({...payload, id})
+    }
+
     render() {
-        const {openQuestions} = this.state;
+        const { openQuestions, level, loading } = this.state;
+        const { questionWithAnswer, questionsByLevel } = this.props;
         return (
             <div className="main-page container">
                 <Form>
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formFirstName">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text"
-                                          placeholder="First Name"
-                                          name="firstName"
-                                          onChange={this.handleChange}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formLastName">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="text"
-                                          placeholder="Last Name"
-                                          name="lastName"
-                                          onChange={this.handleChange}/>
-                        </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
-                        <SelectLevelsComponent label="Your English Level" handleChange={this.handleChange}/>
+                        <SelectLevelsComponent
+                            label="Your English Level"
+                            handleChange={this.handleChange}
+                        />
                     </Form.Row>
                 </Form>
                 {
-                    openQuestions && (
-                        <QuestionsComponent/>
+                    loading ? <Loader /> : openQuestions && (
+                        <>
+                            <QuestionsComponent data={questionsByLevel} />
+                            <Button
+                                disabled={disabled(questionWithAnswer, questionsByLevel)}
+                                className="w-50 button"
+                                variant="warning"
+                                onClick={() => this.onSubmit({
+                                    level,
+                                    answers: questionWithAnswer
+                                })}> Submit </Button>
+                        </>
                     )
                 }
+
             </div>
         )
     }
 }
 
-export default MainPageComponent
+const mapStateToProps = (state) => {
+    return  {
+        questionsByLevel: state.questionsByLevel,
+        questionWithAnswer: state.questionWithAnswer,
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getQuestionsByLevel: (payload) => dispatch( getQuestionsByLevelRequest(payload) ),
+        submitTest: (payload) => dispatch( submitDoneTestRequest(payload) )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPageComponent)

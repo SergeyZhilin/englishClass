@@ -1,5 +1,6 @@
 .main-page {
   padding: 20px;
+  position: relative;
 
   form {
     margin-bottom: 40px;
@@ -8,7 +9,7 @@
   .question-section {
     &__question {
       display: flex;
-      justify-content: center;
+      justify-content: left;
       margin-bottom: unset;
     }
 
@@ -17,9 +18,38 @@
       justify-content: space-evenly;
       margin: 50px 0;
 
-      input[type=radio] {
+      input[type="radio"] {
         display: none;
       }
     }
+  }
+
+  .button {
+    margin: 0 25%;
+  }
+}
+
+.auth-container {
+  width: 40vw;
+  margin: 3% auto;
+}
+
+.results {
+  margin: 5vh auto;
+  width: 60vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .answers-list {
+    .question {
+      margin: 10px 0;
+    }
+  }
+
+  .btn-end {
+    margin-top: 20px;
   }
 }

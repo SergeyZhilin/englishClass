@@ -16,6 +16,7 @@ export default class Service {
 
     loginUser = async ({ payload }) => {
         const { data } =  await this.post('/auth', payload)
+        localStorage.setItem('user', data.id)
         return data
     }
 
@@ -27,6 +28,11 @@ export default class Service {
      getTestByLevel = async (payload) => {
          const { data } = await this.get(`/`,{ params: { 'level': payload }})
          return data
+    }
+
+    getAllLevels = async () => {
+        const { data } = await this.get(`/`, null)
+        return data
     }
 
     submitTest = async (payload) =>  {
@@ -41,7 +47,9 @@ export default class Service {
     }
 
      getAllAnswers = async ({ payload }) => {
-        const { data } = await this.get(`/list/${payload}`)
-        return data;
+         localStorage.setItem('params', payload)
+         const { data } = await this.get(`/list/${payload}`)
+         console.log(data)
+         return data;
     }
 }

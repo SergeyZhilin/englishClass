@@ -1,68 +1,50 @@
-import React, {Component} from 'react';
-import {connect} from "react-redux";
-import Service from "../../services/service";
-import { getAllAnswersRequest } from "../../redux/actions/actions";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {getAllAnswersRequest} from "../../redux/actions/actions";
 
 import Answers from "./Answers";
+import Loader from "../Loader";
 
-class AnswersComponent extends Component {
-	service = new Service()
+const AnswersComponent = ({person}) => {
+    const dispatch = useDispatch()
+    const [user, setUser] = useState(null)
+    const allAnswers = useSelector(state => state.questions.allAnswers)
+    const isLoading = useSelector(state => state.questions.loading)
 
-	state = {
-		user: null
-	}
+    useEffect(() => {
+        getAnswers()
+        const user = localStorage.getItem('user')
+        setUser(user)
+    }, [])
 
-	constructor(props) {
-		super(props);
-	}
+    const getAnswers = () => {
+        dispatch(getAllAnswersRequest(`${person.firstName}-${person.lastName}`))
+    }
 
-	componentDidMount() {
-		this.getAnswers()
-		const user = localStorage.getItem('params')
-		this.setState({
-			user
-		})
-	}
-
-	getAnswers = async () => {
-		await this.props.getAllAnswers(`${this.props.person.firstName}-${this.props.person.lastName}`)
-	}
-
-	render() {
-
-		return (
-			<React.Fragment>
-				<div className="d-flex flex-column justify-content-center answers-list">
-					{
-						this.props.allAnswers[this.state.user]
-						&& this.props.allAnswers[this.state.user].map(({ question, answers, rightAnswer, userAnswer}, index) => (
-							<Answers
-								question={question}
-								answers={answers}
-								rightAnswer={rightAnswer}
-								userAnswer={userAnswer}
-								key={index}
-								number={index + 1}
-							/>
-						))
-					}
-				</div>
-			</React.Fragment>
-		)
-	}
+    return (
+        <React.Fragment>
+            <div className="d-flex flex-column justify-content-center answers-list">
+                {
+                    (typeof isLoading === 'boolean' && isLoading && <Loader/>)
+                    || (typeof isLoading === 'boolean' && !isLoading &&
+                        allAnswers && allAnswers[person.id]
+                        && allAnswers[person.id].map(({question, answers, rightAnswer, userAnswer}, index) => {
+                            return (
+                                <Answers
+                                    question={question}
+                                    answers={answers}
+                                    rightAnswer={rightAnswer}
+                                    userAnswer={userAnswer}
+                                    key={index}
+                                    number={index + 1}
+                                />
+                            )
+                        }))
+                }
+            </div>
+        </React.Fragment>
+    )
 }
 
-const mapStateToProps = (state) => {
-	return  {
-		allAnswers: state.allAnswers,
-		userAnswer: state.userAnswer
-	}
-}
 
-const mapDispatchToProps = dispatch => {
-	return {
-		getAllAnswers: (payload) => dispatch( getAllAnswersRequest(payload) )
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AnswersComponent)
+export default AnswersComponent

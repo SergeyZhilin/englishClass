@@ -1,23 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
 import ToggleButtonGroupControlled from "../../ToggleButtonGroupControlled";
 
-class Question extends Component {
-  render() {
-    let index = this.props.listNumber;
+const Question = (props) => {
+    let index = props.listNumber;
+
     return (
-      <div className="question-section">
-        <p className="question-section__question">
-          {++index}. {this.props.question.question}
-        </p>
-        <ToggleButtonGroupControlled
-          questionId={this.props.questionId}
-          answers={this.props.question}
-          handelChange={this.props.handelChange}
-        />
-        <hr></hr>
-      </div>
+        <div className="question-section">
+            <p className="question-section__question">
+                {++index}. {props.question.question}
+            </p>
+            <ToggleButtonGroupControlled
+                questionId={props.questionId}
+                answers={props.question}
+            />
+            <hr></hr>
+        </div>
     );
-  }
 }
 
 export default Question;

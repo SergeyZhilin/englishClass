@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {authUserRequest} from "../../redux/actions/actions";
-import Service from "../../services/service";
-import { history } from "../../helpers/history";
+import {history} from "../../helpers/history";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -12,68 +11,53 @@ import Footer from "../../components/Footer";
 import '../MainPage/index.scss';
 
 
-class Auth extends Component {
-    service = new Service()
+const Auth = () => {
+    const dispatch = useDispatch()
+    const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        password: '',
+    })
 
-    state = {}
-
-    handleChange = (el) => {
-        this.setState({
+    const handleChange = (el) => {
+        setUser({
+            ...user,
             [el.target.name]: el.target.value
         })
     }
 
-    onSubmit(payload) {
-        this.props.authUser(payload)
+    const onSubmit = (payload) => {
+        dispatch(authUserRequest(payload))
         history.push('/')
     }
 
-    render() {
+    return (
+        <React.Fragment>
+            <Header/>
+            <Form className="auth-container" onSubmit={() => onSubmit(user)}>
+                <Form.Text className="text-muted mb-3">
+                    Please use your credentials.
+                </Form.Text>
+                <Form.Group controlId="formBasicFirstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control name="firstName" onChange={handleChange} type="text" placeholder="First name"/>
+                </Form.Group>
+                <Form.Group controlId="formBasicLastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control name="lastName" onChange={handleChange} type="text" placeholder="Last name"/>
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control name="password" onChange={handleChange} type="password" placeholder="Password"/>
 
-        if (localStorage.getItem('user')) {
-            history.push('/')
-        }
-
-        return (
-            <React.Fragment>
-                <Header/>
-                <Form as={"div"} className="auth-container">
-                    <Form.Text className="text-muted mb-3">
-                        Please use your credentials.
-                    </Form.Text>
-                    <Form.Group controlId="formBasicFirstName">
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control name="firstName" onChange={this.handleChange} type="text" placeholder="First name" />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicLastName">
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control name="lastName" onChange={this.handleChange} type="text" placeholder="Last name" />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control name="password" onChange={this.handleChange} type="password" placeholder="Password" />
-
-                    </Form.Group>
-                    <Button variant="primary" type="submit" onClick={() => this.onSubmit(this.state)}>
-                        Submit
-                    </Button>
-                </Form>
-                <Footer/>
-            </React.Fragment>
-        )
-    }
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+            <Footer/>
+        </React.Fragment>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        authUser: (payload) => dispatch( authUserRequest(payload))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Auth)
+export default Auth

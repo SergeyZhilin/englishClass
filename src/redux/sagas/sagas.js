@@ -1,10 +1,10 @@
 import {all, call, takeEvery, put,} from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import {push} from 'connected-react-router';
 
 import {
     ADD_NEW_TEST_REQUEST,
     AUTH_USER_REQUEST,
-    GET_ALL_ANSWERS_REQUEST,
+    GET_ALL_ANSWERS_REQUEST, GET_ALL_LEVELS_REQUEST,
     GET_ALL_TESTS_REQUEST,
     GET_QUESTIONS_BY_LEVEL_REQUEST,
     SUBMIT_DONE_TEST_REQUEST
@@ -17,7 +17,7 @@ import {
     addNewTestSuccess,
     authUserError,
     authUserSuccess,
-    getAllAnswersSuccess,
+    getAllAnswersSuccess, getAllLevelsSuccess,
     getAllTestsSuccess,
     getQuestionsByLevelError,
     getQuestionsByLevelSuccess,
@@ -45,7 +45,6 @@ function* addNewTestRequest(payload) {
 function* authUserRequest(payload) {
     try {
         const data = yield call(service.loginUser, payload);
-        localStorage.setItem('user', data.id)
         yield put(authUserSuccess(data))
         yield put(push('/'))
     } catch (err) {
@@ -57,20 +56,31 @@ function* authUserRequest(payload) {
 }
 
 function* getAllTestsRequest() {
+    console.log('getAllTest')
     try {
         const data = yield call(service.getAllTests);
         yield put(getAllTestsSuccess(data))
         yield getPerson(data)
-    } catch (err) {}
+    } catch (err) {
+    }
+}
+
+function* getAllLevelsRequest() {
+    try {
+        const data = yield call(service.getAllLevels);
+        const levels = yield data.map(el => el.level)
+        yield put(getAllLevelsSuccess(levels))
+    } catch (err) {
+    }
 }
 
 function* getAllAnswersRequest(payload) {
-    localStorage.setItem('params', payload.payload)
     try {
         const data = yield call(service.getAllAnswers, payload);
-        const user = localStorage.getItem('params')
-        yield put(getAllAnswersSuccess({ [user]: data} ))
-        yield put(putUser({ user } ))
+        console.log({[data[0]]:  data[1]})
+        yield put(getAllAnswersSuccess({[data[0]]: data[1]}))
+        yield put(getAllAnswersSuccess({[data[0]]: data[1]}))
+        // yield put(putUser({data[0]}))
     } catch (err) {
         if (err) {
             yield put(getQuestionsByLevelError(err))
@@ -89,7 +99,7 @@ function* getQuestionsByLevelRequest({payload}) {
     try {
         const data = yield call(service.getTestByLevel, payload);
         yield put(getQuestionsByLevelSuccess(data))
-        localStorage.setItem('questionsCount', data.length )
+        localStorage.setItem('questionsCount', data.length)
     } catch (err) {
         if (err) {
             yield put(getQuestionsByLevelError(err))
@@ -103,7 +113,6 @@ function* submitDoneTestRequest({payload}) {
     try {
         const data = yield call(service.submitTest, payload);
         yield put(submitDoneTestSuccess(data))
-        yield put( push('/results'))
         window.location.replace('/results')
     } catch (err) {
         if (err) {
@@ -120,6 +129,7 @@ const sagas = all([
     takeEvery(GET_ALL_ANSWERS_REQUEST, getAllAnswersRequest),
     takeEvery(GET_QUESTIONS_BY_LEVEL_REQUEST, getQuestionsByLevelRequest),
     takeEvery(SUBMIT_DONE_TEST_REQUEST, submitDoneTestRequest),
+    takeEvery(GET_ALL_LEVELS_REQUEST, getAllLevelsRequest),
 ]);
 
 export default sagas;

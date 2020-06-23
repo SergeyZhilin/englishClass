@@ -1,6 +1,10 @@
-export const checkAnswerStatus = (answer, rightAnswer, userAnswer ) => {
+import {useSelector} from "react-redux";
+
+
+export const checkAnswerStatus = (answer, rightAnswer, userAnswer) => {
     let status;
-    if ((Object.keys(answer).join('') === rightAnswer && userAnswer === rightAnswer) || Object.keys(answer).join('') === rightAnswer) {
+    if ((Object.keys(answer).join('') === rightAnswer && userAnswer === rightAnswer)
+        || (Object.keys(answer).join('') === rightAnswer)) {
         status = 'success'
     } else if (Object.keys(answer).join('') !== rightAnswer && userAnswer === Object.keys(answer).join('')) {
         status = 'danger'
@@ -13,9 +17,9 @@ export const checkAnswerStatus = (answer, rightAnswer, userAnswer ) => {
 
 export const personResult = (person) => {
     const answers = person && JSON.parse(person.answers)
-    return `${(person && person.rightAnswerCount) 
-        ? person.rightAnswerCount 
-        : 0 }/${answers && Object.keys(answers).length || 20}`
+    return `${(person && person.rightAnswerCount)
+        ? person.rightAnswerCount
+        : 0}/${answers && Object.keys(answers).length || 20}`
 }
 
 export const disabled = (a, b) => {
@@ -23,5 +27,11 @@ export const disabled = (a, b) => {
 }
 
 export const isAdmin = () => {
-    return localStorage.getItem('user') === '1'
+    // console.log(user?.id)
+    // return (user?.id === 1)
+    return (localStorage.getItem('user') === '1')
+}
+
+export const levelName = (lvl) => {
+    return lvl[0].toUpperCase() + lvl.slice(1)
 }

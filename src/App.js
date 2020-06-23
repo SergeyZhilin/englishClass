@@ -11,9 +11,15 @@ import Results from "./pages/Results";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {history} from "./helpers/history";
 
 
 function App() {
+
+    if (!localStorage.getItem('user')) {
+        history.push('/auth')
+    }
+
     return (
             <Switch>
                 <Route exact path="/" component={MainPage} />

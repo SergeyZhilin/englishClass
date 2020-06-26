@@ -29,9 +29,7 @@ function questionReducer(state = initialState, action) {
                 loading: true
             }
         case GET_ALL_ANSWERS_SUCCESS:
-            // const data = Object.setPrototypeOf(state.allAnswers, payload)
             const data = Object.setPrototypeOf(state.allAnswers, payload)
-            console.log('payload', payload)
             return {
                 ...state,
                 allAnswers: data,

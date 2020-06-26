@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, { useState} from "react";
 import {useSelector} from "react-redux";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
@@ -13,8 +13,6 @@ import arrowDown from "../../../assets/image/arrow-down.svg"
 
 const ListOfTestsItem = ({person}) => {
     const [open, setOpen] = useState(false)
-    const questionsCount = useSelector(state => state.questions.allAnswers)
-
     return (
         <div className="list-item-wrapper">
             <div className="list-item-info">

@@ -12,7 +12,6 @@ import AnswersComponent from "../../components/AnswersComponent";
 
 import '../MainPage/index.scss';
 
-
 const Results = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
@@ -20,7 +19,7 @@ const Results = () => {
     const person = useSelector(state => state.users.person)
 
     useEffect(() => {
-        const tests = getTests()
+        getTests()
     }, [])
 
     const handleClick = () => {
@@ -28,7 +27,7 @@ const Results = () => {
         window.location.replace('/auth')
     }
 
-    const getTests = async () => await dispatch(getAllTestsRequest())
+    const getTests = () => dispatch(getAllTestsRequest())
 
     if (!localStorage.getItem('user')) {
         history.push('/auth')

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getAllAnswersRequest} from "../../redux/actions/actions";
 
@@ -7,14 +7,12 @@ import Loader from "../Loader";
 
 const AnswersComponent = ({person}) => {
     const dispatch = useDispatch()
-    const [user, setUser] = useState(null)
     const allAnswers = useSelector(state => state.questions.allAnswers)
     const isLoading = useSelector(state => state.questions.loading)
 
     useEffect(() => {
         getAnswers()
-        const user = localStorage.getItem('user')
-        setUser(user)
+        // localStorage.getItem('user')
     }, [])
 
     const getAnswers = () => {

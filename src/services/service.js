@@ -17,6 +17,7 @@ export default class Service {
     loginUser = async ({ payload }) => {
         const { data } =  await this.post('/auth', payload)
         localStorage.setItem('user', data.id)
+        localStorage.setItem('role', data.role)
         return data
     }
 
@@ -27,6 +28,8 @@ export default class Service {
 
      getTestByLevel = async (payload) => {
          const { data } = await this.get(`/`,{ params: { 'level': payload }})
+         console.log('blblblb')
+         localStorage.setItem('questionsCount', data.length)
          return data
     }
 

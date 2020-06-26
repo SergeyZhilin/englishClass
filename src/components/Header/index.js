@@ -25,7 +25,7 @@ const Header = () => {
             </Navbar.Brand>
             <Nav>
                 {
-                    isAdmin() && (
+                    isAdmin(user) && (
                         <>
                             <Nav.Link href="/list">List Of Test</Nav.Link>
                             <Nav.Link href="/add-test">Add New Test Items</Nav.Link>

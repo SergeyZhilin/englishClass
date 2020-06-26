@@ -2,9 +2,6 @@ import React from "react";
 import Question from "./Question";
 
 const QuestionsComponent = ({data}) => {
-
-    const questionId = [];
-
     return (
         <>
             <p>
@@ -14,10 +11,9 @@ const QuestionsComponent = ({data}) => {
                 {
                     data &&
                     data.map((question, index) => {
-                        questionId.push(question.id);
                         return (
                             <Question
-                                questionId={questionId[index]}
+                                questionId={question.id}
                                 question={question}
                                 key={index}
                                 listNumber={index}

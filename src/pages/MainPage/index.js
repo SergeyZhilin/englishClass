@@ -7,7 +7,6 @@ import Footer from "../../components/Footer";
 import './index.scss';
 
 const MainPage = () => {
-
     return (
         <React.Fragment>
             <Header/>

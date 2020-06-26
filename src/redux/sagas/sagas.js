@@ -21,7 +21,6 @@ import {
     getAllTestsSuccess,
     getQuestionsByLevelError,
     getQuestionsByLevelSuccess,
-    putUser,
     setPerson,
     submitDoneTestSError,
     submitDoneTestSuccess
@@ -56,7 +55,6 @@ function* authUserRequest(payload) {
 }
 
 function* getAllTestsRequest() {
-    console.log('getAllTest')
     try {
         const data = yield call(service.getAllTests);
         yield put(getAllTestsSuccess(data))
@@ -77,10 +75,9 @@ function* getAllLevelsRequest() {
 function* getAllAnswersRequest(payload) {
     try {
         const data = yield call(service.getAllAnswers, payload);
-        console.log({[data[0]]:  data[1]})
+        console.log({[data[0]]: data[1]})
         yield put(getAllAnswersSuccess({[data[0]]: data[1]}))
         yield put(getAllAnswersSuccess({[data[0]]: data[1]}))
-        // yield put(putUser({data[0]}))
     } catch (err) {
         if (err) {
             yield put(getQuestionsByLevelError(err))
@@ -99,7 +96,6 @@ function* getQuestionsByLevelRequest({payload}) {
     try {
         const data = yield call(service.getTestByLevel, payload);
         yield put(getQuestionsByLevelSuccess(data))
-        localStorage.setItem('questionsCount', data.length)
     } catch (err) {
         if (err) {
             yield put(getQuestionsByLevelError(err))

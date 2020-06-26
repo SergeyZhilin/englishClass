@@ -26,8 +26,8 @@ const Auth = () => {
         })
     }
 
-    const onSubmit = (payload) => {
-        dispatch(authUserRequest(payload))
+    const onSubmit = async (payload) => {
+        await dispatch(authUserRequest(payload))
         history.push('/')
     }
 

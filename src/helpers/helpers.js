@@ -1,8 +1,6 @@
-import {useSelector} from "react-redux";
-
-
 export const checkAnswerStatus = (answer, rightAnswer, userAnswer) => {
     let status;
+
     if ((Object.keys(answer).join('') === rightAnswer && userAnswer === rightAnswer)
         || (Object.keys(answer).join('') === rightAnswer)) {
         status = 'success'
@@ -26,10 +24,8 @@ export const disabled = (a, b) => {
     return Object.keys(a).length !== b.length
 }
 
-export const isAdmin = () => {
-    // console.log(user?.id)
-    // return (user?.id === 1)
-    return (localStorage.getItem('user') === '1')
+export const isAdmin = (user) => {
+    return (user?.role === 'admin') || (localStorage.getItem('role') === 'admin')
 }
 
 export const levelName = (lvl) => {

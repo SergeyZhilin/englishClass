@@ -21,7 +21,6 @@ const MainPageComponent = () => {
     const isLoading = useSelector(state => state.questions.loading)
     const questionWithAnswer = useSelector(state => state.questions.questionWithAnswer)
 
-
     const getQuestions = (level) => {
         dispatch(getQuestionsByLevelRequest(level));
     }

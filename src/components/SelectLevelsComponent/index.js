@@ -14,7 +14,7 @@ const SelectLevelsComponent = ({label, handleChange}) => {
 
     useEffect(() => {
         dispatch(getAllLevelsRequest())
-    }, [levels !== null])
+    },[levels !== null])
 
     return (
         <Form.Group as={Col} className="mb-lg-4">
